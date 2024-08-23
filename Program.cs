@@ -71,8 +71,8 @@ namespace Program
         string password = Console.ReadLine();
 
         while(true)
-        {
-            Console.WriteLine("Повторите введеный пароль (или 'q' для выхода): ");
+            {
+                Console.WriteLine("Повторите введеный пароль (или 'q' для выхода): ");
             string value = Console.ReadLine();
             if(value.ToLower() == "q") break;
             if(value == password) break;
