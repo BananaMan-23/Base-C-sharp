@@ -1,6 +1,7 @@
 ﻿using System;
 using taskTwo;
 using simpleNumber;
+using basket;
 
 namespace Program
 {
@@ -30,6 +31,7 @@ namespace Program
         object obj = "Пример";
         Console.WriteLine($"\nObject: {obj}");
         Console.ReadLine();
+
         // задача 2
         Console.Write("Введите первое число: ");
         double num1 = Convert.ToDouble(Console.ReadLine());
@@ -39,6 +41,7 @@ namespace Program
         TaskTwo Number = new TaskTwo(num1, num2);
         Number.SumNumber();
         Console.ReadLine();
+
         // задача 3
         Console.Write("Введите минимальное число: ");
         int min = Convert.ToInt32(Console.ReadLine());
@@ -49,6 +52,18 @@ namespace Program
         Simple simple = new Simple(min, max);
         simple.FindNumber();
         Console.ReadLine();
+
+        // задача 4
+        BasketItem basket = new BasketItem();
+        while (true)
+        {
+            Console.Write("Введите название продукта для добавления (или 'q' для выхода): ");
+            string input = Console.ReadLine();
+            if (input.ToLower() == "q") break;
+            basket.AddProduct(input);
+        }
+         Console.WriteLine("\nПродукты в корзине:");
+         basket.PrintBasket();
         }
         
     }
