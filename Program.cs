@@ -78,7 +78,5 @@ namespace Program
                 if (value == password) break;
             }
         }
-
     }
-
 }
