@@ -1,4 +1,6 @@
 ﻿using System;
+using taskTwo;
+using simpleNumber;
 
 namespace Program
 {
@@ -6,7 +8,7 @@ namespace Program
     {
         static void Main(string[] args)
         {
-
+        // задача 1
         Console.WriteLine("Минимальное и максимальное значения для примитивных типов:");
         Console.WriteLine($"bool: {true}/{false}");
         Console.WriteLine($"byte: {byte.MinValue}/{byte.MaxValue}");
@@ -28,7 +30,27 @@ namespace Program
         object obj = "Пример";
         Console.WriteLine($"\nObject: {obj}");
         Console.ReadLine();
+        // задача 2
+        Console.Write("Введите первое число: ");
+        double num1 = Convert.ToDouble(Console.ReadLine());
+
+        Console.Write("Введите второе число: ");
+        double num2 = Convert.ToDouble(Console.ReadLine());
+        TaskTwo Number = new TaskTwo(num1, num2);
+        Number.SumNumber();
+        Console.ReadLine();
+        // задача 3
+        Console.Write("Введите минимальное число: ");
+        int min = Convert.ToInt32(Console.ReadLine());
+
+        Console.Write("Введите максимальное число: ");
+        int max = Convert.ToInt32(Console.ReadLine());
+
+        Simple simple = new Simple(min, max);
+        simple.FindNumber();
+        Console.ReadLine();
         }
+        
     }
     
 }
