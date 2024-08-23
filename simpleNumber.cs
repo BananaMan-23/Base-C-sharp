@@ -18,7 +18,7 @@ namespace simpleNumber
             Console.WriteLine("Простые числа в заданном диапазоне:");
             for (int i = minValue; i <= maxValue; i++)
             {
-                if(IsPrime(i))
+                if (IsPrime(i))
                 {
                     Console.WriteLine(i);
                 }
@@ -31,9 +31,9 @@ namespace simpleNumber
             if (num == 2) return true;
             if (num % 2 == 0) return false;
             var limit = (int)Math.Floor(Math.Sqrt(num));
-            for(int i = 3; i < limit; i+=2)
+            for (int i = 3; i < limit; i += 2)
             {
-                if(num % i  == 0) return false;
+                if (num % i == 0) return false;
             }
             return true;
         }
