@@ -62,8 +62,21 @@ namespace Program
             if (input.ToLower() == "q") break;
             basket.AddProduct(input);
         }
-         Console.WriteLine("\nПродукты в корзине:");
-         basket.PrintBasket();
+        Console.WriteLine("\nПродукты в корзине:");
+        basket.PrintBasket();
+        Console.ReadLine();
+
+        // задача 5
+        Console.WriteLine("Введите пароль: ");
+        string password = Console.ReadLine();
+
+        while(true)
+        {
+            Console.WriteLine("Повторите введеный пароль (или 'q' для выхода): ");
+            string value = Console.ReadLine();
+            if(value.ToLower() == "q") break;
+            if(value == password) break;
+        }
         }
         
     }
