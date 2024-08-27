@@ -1,12 +1,11 @@
 using System;
-using System.Collections.Generic;
 using Utils;
 using Drink;
 
 
 namespace CoffeeMachine
 {
-    class Coffee
+    class Coffe
     {
         private bool _isOn;
         private int _LevelWater;
@@ -14,7 +13,7 @@ namespace CoffeeMachine
         private int _LevelMilk;
         private List<Drinks> _RecipeDrink;
 
-        public Coffee()
+        public Coffe()
         {
             _isOn = false;
             _LevelWater = 0;
@@ -22,10 +21,10 @@ namespace CoffeeMachine
             _LevelMilk = 0;
             _RecipeDrink = new List<Drinks>();
         }
-        public bool? IsOn { get; set; }
-        public int? LevelWater { get; set; }
-        public bool? LevelCoffe { get; set; }
-        public int? LevelMilk { get; set; }
+        public bool IsOn { get; set; }
+        public int LevelWater { get; set; }
+        public bool LevelCoffe { get; set; }
+        public int LevelMilk { get; set; }
         public List<Drinks>? RecipeDrink { get; }
 
         public void TurnOn()
@@ -57,7 +56,7 @@ namespace CoffeeMachine
 
         public void AddCoffe(int value)
         {
-            if (_LevelCoffe + value > 50)
+            if (_LevelCoffe + value > 100)
             {
                 Console.WriteLine("Уровень Кофе слишком высок!");
             }
@@ -79,15 +78,15 @@ namespace CoffeeMachine
             {
                 Console.WriteLine("Аппарат выключен!");
             }
-            if (type == TypeDrink.Espresso && _LevelCoffe < 5)
+            if (type == TypeDrink.Espresso && _LevelCoffe < 10)
             {
                 Console.WriteLine("Недостаточно кофе");
             }
-            if (type == TypeDrink.Capuccino && _LevelCoffe < 10 && _LevelMilk < 20)
+            if (type == TypeDrink.Capuccino && _LevelCoffe < 10 && _LevelMilk < 50)
             {
                 Console.WriteLine("Недостаточно кофе и молока");
             }
-            if (type == TypeDrink.Latte && _LevelCoffe < 15 && _LevelMilk < 30)
+            if (type == TypeDrink.Latte && _LevelCoffe < 15 && _LevelMilk < 100)
             {
                 Console.WriteLine("Недостаточно кофе и молока");
             }
@@ -106,6 +105,7 @@ namespace CoffeeMachine
             }
             _LevelCoffe = 0;
             _LevelMilk = 0;
+            Console.WriteLine("Аппарат очищен!");
         }
 
         public void LogDrink(Drinks drink)
