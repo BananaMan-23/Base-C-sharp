@@ -79,21 +79,27 @@ namespace menuCoffeMachine
                         break;
                     case 6:
                         Console.Clear();
+                        Console.Write("Выберите профиль [Espresso/Capuccino/Latte]: ");
+                        string espressoProfile = Console.ReadLine();
                         Console.Write("Введите колличество чашек: ");
                         int cupEspresso = Convert.ToInt32(Console.ReadLine());
-                        _coffeMachine.PrepareDrink(TypeDrink.Espresso, cupEspresso);
+                        _coffeMachine.PrepareDrink(TypeDrink.Espresso, cupEspresso, espressoProfile);
                         break;
                     case 7:
                         Console.Clear();
+                        Console.Write("Выберите профиль [Espresso/Capuccino/Latte]: ");
+                        string capuccinoProfile = Console.ReadLine();
                         Console.Write("Введите колличество чашек: ");
                         int cupCapuccino = Convert.ToInt32(Console.ReadLine());
-                        _coffeMachine.PrepareDrink(TypeDrink.Capuccino, cupCapuccino);
+                        _coffeMachine.PrepareDrink(TypeDrink.Capuccino, cupCapuccino, capuccinoProfile);
                         break;
                     case 8:
                         Console.Clear();
+                        Console.Write("Выберите профиль [Espresso/Capuccino/Latte]: ");
+                        string latteProfile = Console.ReadLine();
                         Console.Write("Введите колличество чашек: ");
                         int cupLatte = Convert.ToInt32(Console.ReadLine());
-                        _coffeMachine.PrepareDrink(TypeDrink.Latte, cupLatte);
+                        _coffeMachine.PrepareDrink(TypeDrink.Latte, cupLatte, latteProfile);
                         break;
                     case 9:
                         Console.Clear();

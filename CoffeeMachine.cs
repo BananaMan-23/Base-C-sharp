@@ -1,6 +1,7 @@
 using System;
 using Utils;
 using Drink;
+using Profile;
 
 
 namespace CoffeeMachine
@@ -12,6 +13,7 @@ namespace CoffeeMachine
         private int _LevelCoffe;
         private int _LevelMilk;
         private List<Drinks> _RecipeDrink;
+        private Dictionary<string, ProfileMenu> _Profiles;
 
         public Coffe()
         {
@@ -20,12 +22,24 @@ namespace CoffeeMachine
             _LevelCoffe = 0;
             _LevelMilk = 0;
             _RecipeDrink = new List<Drinks>();
+            InitProfile();
         }
         public bool IsOn { get; set; }
         public int LevelWater { get; set; }
         public bool LevelCoffe { get; set; }
         public int LevelMilk { get; set; }
         public List<Drinks>? RecipeDrink { get; }
+
+        private void InitProfile()
+        {
+            _Profiles = new Dictionary<string, ProfileMenu>
+            {
+                {"Espresso", new ProfileMenu("Espresso", 20, 0)},
+                {"Capuccino", new ProfileMenu("Capuccino", 15, 50)},
+                {"Latte", new ProfileMenu("Latte", 15, 75)},
+            };
+
+        }
 
         public void TurnOn()
         {
@@ -72,57 +86,31 @@ namespace CoffeeMachine
             _LevelMilk += value;
         }
 
-        public void PrepareDrink(TypeDrink type, int cups)
+        public void PrepareDrink(TypeDrink type, int cups, string profileName)
         {
             if (!_isOn)
             {
                 Console.WriteLine("Аппарат выключен!");
                 return;
             }
-            int coffeNeed = 10 * cups;
-            int milkneed = 10 * cups;
-
-            switch (type)
+            if (!_Profiles.TryGetValue(profileName, out var profile))
             {
-                case TypeDrink.Espresso:
-                    if (_LevelCoffe < coffeNeed)
-                    {
-                        Console.WriteLine("Недостаточно кофе!");
-                        return;
-                    }
-                    _LevelCoffe -= coffeNeed;
-                    Drinks espresso = new Drinks(type, coffeNeed, milkneed);
-                    _RecipeDrink.Add(espresso);
-                    LogDrink(espresso);
-                    break;
-                case TypeDrink.Capuccino:
-                    if (_LevelCoffe < coffeNeed || _LevelMilk < milkneed)
-                    {
-                        Console.WriteLine("Недостаточно кофе и молока!");
-                        return;
-                    }
-                    _LevelCoffe -= coffeNeed;
-                    _LevelMilk -= milkneed;
-                    Drinks capuccino = new Drinks(type, coffeNeed, milkneed);
-                    _RecipeDrink.Add(capuccino);
-                    LogDrink(capuccino);
-                    break;
-                case TypeDrink.Latte:
-                    if (_LevelCoffe < coffeNeed || _LevelMilk < milkneed * 2)
-                    {
-                        Console.WriteLine("Недостаточно кофе и молока!");
-                        return;
-                    }
-                    _LevelCoffe -= coffeNeed;
-                    _LevelMilk -= milkneed * 2;
-                    Drinks latte = new Drinks(type, coffeNeed, milkneed);
-                    _RecipeDrink.Add(latte);
-                    LogDrink(latte);
-                    break;
+                Console.WriteLine("Профиль не найден");
+                return;
             }
-            Drinks drink = new Drinks(type, coffeNeed, milkneed);
+            int coffeNeed = profile.CoffeValue * cups;
+            int milkNeed = profile.MilkValue * cups;
+            if (_LevelCoffe < coffeNeed || _LevelMilk < milkNeed)
+            {
+                Console.WriteLine("Недостаточно кофе и молока");
+                return;
+            }
+            _LevelCoffe -= coffeNeed;
+            _LevelMilk -= milkNeed;
+
+            Drinks drink = new Drinks(type, profile);
             _RecipeDrink.Add(drink);
-            LogDrink(drink);
+            Console.WriteLine($"Приготовлен {drink.ProfileMenu.Name} с {coffeNeed}гр. кофе и {milkNeed}мл. молока");
         }
 
         public void CleanMachine()
@@ -138,7 +126,7 @@ namespace CoffeeMachine
 
         public void LogDrink(Drinks drink)
         {
-            Console.WriteLine($"Готовый {drink.Type} с {drink.Coffee}гр. кофе и {drink.Milk}гр. молока");
+            Console.WriteLine($"Готовый {drink.ProfileMenu.Name} с {drink.ProfileMenu.CoffeValue}гр. кофе и {drink.ProfileMenu.MilkValue}гр. молока");
         }
         public void LogAllDrinks()
         {

@@ -1,4 +1,5 @@
 using System;
+using Profile;
 using Utils;
 
 namespace Drink
@@ -6,14 +7,12 @@ namespace Drink
     class Drinks
     {
         public TypeDrink Type { get; }
-        public int Coffee { get; }
-        public int Milk { get; }
+        public ProfileMenu ProfileMenu { get; }
 
-        public Drinks(TypeDrink type, int coffee, int milk)
+        public Drinks(TypeDrink type, ProfileMenu profileMenu)
         {
             Type = type;
-            Coffee = coffee;
-            Milk = milk;
+            ProfileMenu = profileMenu;
         }
     }
 }
