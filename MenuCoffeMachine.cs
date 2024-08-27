@@ -78,10 +78,10 @@ namespace menuCoffeMachine
                     case 6:
                         Console.Clear();
                         Console.Write("Выберите профиль [Espresso/Capuccino/Latte]: ");
-                        string espressoProfile = Console.ReadLine();
+                        string coffeProfile = Console.ReadLine().ToLower();
                         Console.Write("Введите колличество чашек: ");
-                        int cupEspresso = Convert.ToInt32(Console.ReadLine());
-                        _coffeMachine.PrepareDrink(TypeDrink.Espresso, cupEspresso, espressoProfile);
+                        int cupCoffe = Convert.ToInt32(Console.ReadLine());
+                        _coffeMachine.PrepareDrink(TypeDrink.Espresso, cupCoffe, coffeProfile);
                         break;
                     case 7:
                         Console.Clear();

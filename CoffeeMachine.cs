@@ -34,9 +34,9 @@ namespace CoffeeMachine
         {
             _Profiles = new Dictionary<string, ProfileMenu>
             {
-                {"Espresso", new ProfileMenu("Espresso", 20, 0)},
-                {"Capuccino", new ProfileMenu("Capuccino", 15, 50)},
-                {"Latte", new ProfileMenu("Latte", 15, 75)},
+                {"espresso", new ProfileMenu("espresso", 20, 0)},
+                {"capuccino", new ProfileMenu("capuccino", 15, 50)},
+                {"latte", new ProfileMenu("latte", 15, 75)},
             };
 
         }
