@@ -22,13 +22,11 @@ namespace menuCoffeMachine
             Console.WriteLine("3. Добавить воду");
             Console.WriteLine("4. Добавить кофе");
             Console.WriteLine("5. Добавить молоко");
-            Console.WriteLine("6. Приготовить эспрессо");
-            Console.WriteLine("7. Приготовить капуччино");
-            Console.WriteLine("8. Приготовить латте");
-            Console.WriteLine("9. Очистить кофемашину");
-            Console.WriteLine("10. Вывести рецепт напитка");
-            Console.WriteLine("11. Вывести все приготовленные напитки: ");
-            Console.WriteLine("12. Выход");
+            Console.WriteLine("6. Приготовить кофе");
+            Console.WriteLine("7. Очистить кофемашину");
+            Console.WriteLine("8. Вывести рецепт напитка");
+            Console.WriteLine("9. Вывести все приготовленные напитки: ");
+            Console.WriteLine("10. Выход");
             Console.Write("Введите номер действия: ");
         }
 
@@ -87,35 +85,19 @@ namespace menuCoffeMachine
                         break;
                     case 7:
                         Console.Clear();
-                        Console.Write("Выберите профиль [Espresso/Capuccino/Latte]: ");
-                        string capuccinoProfile = Console.ReadLine();
-                        Console.Write("Введите колличество чашек: ");
-                        int cupCapuccino = Convert.ToInt32(Console.ReadLine());
-                        _coffeMachine.PrepareDrink(TypeDrink.Capuccino, cupCapuccino, capuccinoProfile);
-                        break;
-                    case 8:
-                        Console.Clear();
-                        Console.Write("Выберите профиль [Espresso/Capuccino/Latte]: ");
-                        string latteProfile = Console.ReadLine();
-                        Console.Write("Введите колличество чашек: ");
-                        int cupLatte = Convert.ToInt32(Console.ReadLine());
-                        _coffeMachine.PrepareDrink(TypeDrink.Latte, cupLatte, latteProfile);
-                        break;
-                    case 9:
-                        Console.Clear();
                         _coffeMachine.CleanMachine();
                         break;
-                    case 10:
+                    case 8:
                         Console.Clear();
                         Console.Write("Введите название напитка; ");
                         string name = Console.ReadLine();
                         _coffeMachine.drinkRecipe(name);
                         break;
-                    case 11:
+                    case 9:
                         Console.Clear();
                         _coffeMachine.LogAllDrinks();
                         break;
-                    case 12:
+                    case 10:
                         Console.Clear();
                         Console.WriteLine("Выход...");
                         break;
@@ -123,7 +105,7 @@ namespace menuCoffeMachine
                         Console.WriteLine("Неверный выбор. Попробуйте снова.");
                         break;
                 }
-            } while (choice != 12);
+            } while (choice != 10);
         }
     }
 }
