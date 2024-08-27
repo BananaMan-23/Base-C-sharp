@@ -47,7 +47,7 @@ namespace CoffeeMachine
 
         public void AddWater(int value)
         {
-            if (_LevelWater + value > 250)
+            if (_LevelWater + value > 500)
             {
                 Console.WriteLine("Уровень воды превышен!");
             }
@@ -56,7 +56,7 @@ namespace CoffeeMachine
 
         public void AddCoffe(int value)
         {
-            if (_LevelCoffe + value > 100)
+            if (_LevelCoffe + value > 250)
             {
                 Console.WriteLine("Уровень Кофе слишком высок!");
             }
@@ -65,7 +65,7 @@ namespace CoffeeMachine
 
         public void AddMilk(int value)
         {
-            if (_LevelMilk + value > 250)
+            if (_LevelMilk + value > 500)
             {
                 Console.WriteLine("Слишком много молока!");
             }
@@ -91,6 +91,9 @@ namespace CoffeeMachine
                         return;
                     }
                     _LevelCoffe -= coffeNeed;
+                    Drinks espresso = new Drinks(type, coffeNeed, milkneed);
+                    _RecipeDrink.Add(espresso);
+                    LogDrink(espresso);
                     break;
                 case TypeDrink.Capuccino:
                     if (_LevelCoffe < coffeNeed || _LevelMilk < milkneed)
@@ -100,6 +103,9 @@ namespace CoffeeMachine
                     }
                     _LevelCoffe -= coffeNeed;
                     _LevelMilk -= milkneed;
+                    Drinks capuccino = new Drinks(type, coffeNeed, milkneed);
+                    _RecipeDrink.Add(capuccino);
+                    LogDrink(capuccino);
                     break;
                 case TypeDrink.Latte:
                     if (_LevelCoffe < coffeNeed || _LevelMilk < milkneed * 2)
@@ -109,6 +115,9 @@ namespace CoffeeMachine
                     }
                     _LevelCoffe -= coffeNeed;
                     _LevelMilk -= milkneed * 2;
+                    Drinks latte = new Drinks(type, coffeNeed, milkneed);
+                    _RecipeDrink.Add(latte);
+                    LogDrink(latte);
                     break;
             }
             Drinks drink = new Drinks(type, coffeNeed, milkneed);
@@ -144,13 +153,13 @@ namespace CoffeeMachine
         {
             switch (drinkname.ToLower())
             {
-                case "Espresso":
+                case "espresso":
                     Console.WriteLine("Еспрессо 20гр. кофе");
                     break;
-                case "Capuccino":
+                case "capuccino":
                     Console.WriteLine("Капучино 20гр. кофе и 50мл. молока");
                     break;
-                case "Latte":
+                case "latte":
                     Console.WriteLine("Латте 15гр. кофе и 50мл. молока");
                     break;
                 default:

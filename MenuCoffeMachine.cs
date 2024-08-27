@@ -27,7 +27,8 @@ namespace menuCoffeMachine
             Console.WriteLine("8. Приготовить латте");
             Console.WriteLine("9. Очистить кофемашину");
             Console.WriteLine("10. Вывести рецепт напитка");
-            Console.WriteLine("11. Выход");
+            Console.WriteLine("11. Вывести все приготовленные напитки: ");
+            Console.WriteLine("12. Выход");
             Console.Write("Введите номер действия: ");
         }
 
@@ -52,60 +53,71 @@ namespace menuCoffeMachine
                 switch (choice)
                 {
                     case 1:
+                        Console.Clear();
                         _coffeMachine.TurnOn();
                         break;
                     case 2:
                         _coffeMachine.TurnOff();
                         break;
                     case 3:
+                        Console.Clear();
                         Console.Write("Введите количество воды для добавления (в мл): ");
                         int waterValue = Convert.ToInt32(Console.ReadLine());
                         _coffeMachine.AddWater(waterValue);
                         break;
                     case 4:
+                        Console.Clear();
                         Console.Write("Введите количество кофе для добавления (в г): ");
                         int coffeValue = Convert.ToInt32(Console.ReadLine());
                         _coffeMachine.AddCoffe(coffeValue);
                         break;
                     case 5:
+                        Console.Clear();
                         Console.Write("Введите количество молока для добавления (в мл): ");
                         int milkValue = Convert.ToInt32(Console.ReadLine());
                         _coffeMachine.AddMilk(milkValue);
                         break;
                     case 6:
+                        Console.Clear();
                         Console.Write("Введите колличество чашек: ");
                         int cupEspresso = Convert.ToInt32(Console.ReadLine());
                         _coffeMachine.PrepareDrink(TypeDrink.Espresso, cupEspresso);
-                        _coffeMachine.LogDrink(new Drinks(TypeDrink.Espresso, 25, 0));
                         break;
                     case 7:
+                        Console.Clear();
                         Console.Write("Введите колличество чашек: ");
                         int cupCapuccino = Convert.ToInt32(Console.ReadLine());
                         _coffeMachine.PrepareDrink(TypeDrink.Capuccino, cupCapuccino);
-                        _coffeMachine.LogDrink(new Drinks(TypeDrink.Capuccino, 25, 50));
                         break;
                     case 8:
+                        Console.Clear();
                         Console.Write("Введите колличество чашек: ");
                         int cupLatte = Convert.ToInt32(Console.ReadLine());
                         _coffeMachine.PrepareDrink(TypeDrink.Latte, cupLatte);
-                        _coffeMachine.LogDrink(new Drinks(TypeDrink.Latte, 35, 50));
                         break;
                     case 9:
+                        Console.Clear();
                         _coffeMachine.CleanMachine();
                         break;
                     case 10:
+                        Console.Clear();
                         Console.Write("Введите название напитка; ");
                         string name = Console.ReadLine();
                         _coffeMachine.drinkRecipe(name);
                         break;
                     case 11:
+                        Console.Clear();
+                        _coffeMachine.LogAllDrinks();
+                        break;
+                    case 12:
+                        Console.Clear();
                         Console.WriteLine("Выход...");
                         break;
                     default:
                         Console.WriteLine("Неверный выбор. Попробуйте снова.");
                         break;
                 }
-            } while (choice != 10);
+            } while (choice != 12);
         }
     }
 }
