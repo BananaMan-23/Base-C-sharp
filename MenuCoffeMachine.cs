@@ -52,10 +52,10 @@ namespace menuCoffeMachine
                 {
                     case 1:
                         Console.Clear();
-                        _coffeMachine.TurnOn();
+                        _coffeMachine.TurnToggle(true);
                         break;
                     case 2:
-                        _coffeMachine.TurnOff();
+                        _coffeMachine.TurnToggle(false);
                         break;
                     case 3:
                         Console.Clear();
@@ -90,8 +90,8 @@ namespace menuCoffeMachine
                     case 8:
                         Console.Clear();
                         Console.Write("Введите название напитка; ");
-                        string name = Console.ReadLine();
-                        _coffeMachine.drinkRecipe(name);
+                        string? name = Console.ReadLine();
+                        _coffeMachine.drinkRecipe(name!);
                         break;
                     case 9:
                         Console.Clear();

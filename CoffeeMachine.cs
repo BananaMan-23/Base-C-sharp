@@ -8,6 +8,10 @@ namespace CoffeeMachine
 {
     class Coffe
     {
+        private const int MAX_LEVEL_WATER = 500;
+        private const int MAX_LEVEL_COFFEE = 250;
+        private const int MAX_LEVEL_MILK = 500;
+
         private bool _isOn;
         private int _LevelWater;
         private int _LevelCoffe;
@@ -25,43 +29,52 @@ namespace CoffeeMachine
             InitProfile();
         }
         public bool IsOn { get; set; }
+
         public int LevelWater { get; set; }
+
         public bool LevelCoffe { get; set; }
+
         public int LevelMilk { get; set; }
+
         public List<Drinks>? RecipeDrink { get; }
 
         private void InitProfile()
         {
             _Profiles = new Dictionary<string, ProfileMenu>
             {
-                {"espresso", new ProfileMenu("espresso", 20, 0)},
-                {"capuccino", new ProfileMenu("capuccino", 15, 50)},
-                {"latte", new ProfileMenu("latte", 15, 75)},
+                {"espresso", new ProfileMenu("espresso", 20, 0, 50)},
+                {"capuccino", new ProfileMenu("capuccino", 15, 50, 100)},
+                {"latte", new ProfileMenu("latte", 15, 75, 75)},
             };
 
         }
 
-        public void TurnOn()
+        public void TurnToggle(bool value)
         {
-            if (_isOn)
+            bool currentState = _isOn;
+            bool newState = value;
+            if (newState != currentState)
             {
-                Console.WriteLine("Машина уже включена");
-            }
-            _isOn = true;
-        }
+                _isOn = newState;
 
-        public void TurnOff()
-        {
-            if (!_isOn)
-            {
-                Console.WriteLine("Машина уже выключена");
+                if (_isOn)
+                {
+                    Console.WriteLine("Машина включена!");
+                }
+                else
+                {
+                    Console.WriteLine("Машина выключена!");
+                }
             }
-            _isOn = false;
+            else
+            {
+                Console.WriteLine($"Состояние машины не изменилось. Текущее состояние: {_isOn}");
+            }
         }
 
         public void AddWater(int value)
         {
-            if (_LevelWater + value > 500)
+            if (_LevelWater + value > MAX_LEVEL_WATER)
             {
                 Console.WriteLine("Уровень воды превышен!");
             }
@@ -70,7 +83,7 @@ namespace CoffeeMachine
 
         public void AddCoffe(int value)
         {
-            if (_LevelCoffe + value > 250)
+            if (_LevelCoffe + value > MAX_LEVEL_COFFEE)
             {
                 Console.WriteLine("Уровень Кофе слишком высок!");
             }
@@ -79,7 +92,7 @@ namespace CoffeeMachine
 
         public void AddMilk(int value)
         {
-            if (_LevelMilk + value > 500)
+            if (_LevelMilk + value > MAX_LEVEL_MILK)
             {
                 Console.WriteLine("Слишком много молока!");
             }
@@ -100,13 +113,15 @@ namespace CoffeeMachine
             }
             int coffeNeed = profile.CoffeValue * cups;
             int milkNeed = profile.MilkValue * cups;
-            if (_LevelCoffe < coffeNeed || _LevelMilk < milkNeed)
+            int waterNeed = profile.WaterValue * cups;
+            if (_LevelCoffe < coffeNeed || _LevelMilk < milkNeed || _LevelWater < waterNeed)
             {
-                Console.WriteLine("Недостаточно кофе и молока");
+                Console.WriteLine("Недостаточно ингредиентов");
                 return;
             }
             _LevelCoffe -= coffeNeed;
             _LevelMilk -= milkNeed;
+            _LevelWater -= waterNeed;
 
             Drinks drink = new Drinks(type, profile);
             _RecipeDrink.Add(drink);
@@ -119,8 +134,6 @@ namespace CoffeeMachine
             {
                 Console.WriteLine("Аппарат выключен!");
             }
-            _LevelCoffe = 0;
-            _LevelMilk = 0;
             Console.WriteLine("Аппарат очищен!");
         }
 
