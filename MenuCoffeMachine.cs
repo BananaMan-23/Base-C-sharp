@@ -26,7 +26,8 @@ namespace menuCoffeMachine
             Console.WriteLine("7. Приготовить капуччино");
             Console.WriteLine("8. Приготовить латте");
             Console.WriteLine("9. Очистить кофемашину");
-            Console.WriteLine("10. Выход");
+            Console.WriteLine("10. Вывести рецепт напитка");
+            Console.WriteLine("11. Выход");
             Console.Write("Введите номер действия: ");
         }
 
@@ -72,21 +73,32 @@ namespace menuCoffeMachine
                         _coffeMachine.AddMilk(milkValue);
                         break;
                     case 6:
-                        _coffeMachine.PrepareDrink(TypeDrink.Espresso);
+                        Console.Write("Введите колличество чашек: ");
+                        int cupEspresso = Convert.ToInt32(Console.ReadLine());
+                        _coffeMachine.PrepareDrink(TypeDrink.Espresso, cupEspresso);
                         _coffeMachine.LogDrink(new Drinks(TypeDrink.Espresso, 25, 0));
                         break;
                     case 7:
-                        _coffeMachine.PrepareDrink(TypeDrink.Capuccino);
+                        Console.Write("Введите колличество чашек: ");
+                        int cupCapuccino = Convert.ToInt32(Console.ReadLine());
+                        _coffeMachine.PrepareDrink(TypeDrink.Capuccino, cupCapuccino);
                         _coffeMachine.LogDrink(new Drinks(TypeDrink.Capuccino, 25, 50));
                         break;
                     case 8:
-                        _coffeMachine.PrepareDrink(TypeDrink.Latte);
+                        Console.Write("Введите колличество чашек: ");
+                        int cupLatte = Convert.ToInt32(Console.ReadLine());
+                        _coffeMachine.PrepareDrink(TypeDrink.Latte, cupLatte);
                         _coffeMachine.LogDrink(new Drinks(TypeDrink.Latte, 35, 50));
                         break;
                     case 9:
                         _coffeMachine.CleanMachine();
                         break;
                     case 10:
+                        Console.Write("Введите название напитка; ");
+                        string name = Console.ReadLine();
+                        _coffeMachine.drinkRecipe(name);
+                        break;
+                    case 11:
                         Console.WriteLine("Выход...");
                         break;
                     default:

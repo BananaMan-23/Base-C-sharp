@@ -72,29 +72,48 @@ namespace CoffeeMachine
             _LevelMilk += value;
         }
 
-        public void PrepareDrink(TypeDrink type)
+        public void PrepareDrink(TypeDrink type, int cups)
         {
             if (!_isOn)
             {
                 Console.WriteLine("Аппарат выключен!");
+                return;
             }
-            if (type == TypeDrink.Espresso && _LevelCoffe < 10)
-            {
-                Console.WriteLine("Недостаточно кофе");
-            }
-            if (type == TypeDrink.Capuccino && _LevelCoffe < 10 && _LevelMilk < 50)
-            {
-                Console.WriteLine("Недостаточно кофе и молока");
-            }
-            if (type == TypeDrink.Latte && _LevelCoffe < 15 && _LevelMilk < 100)
-            {
-                Console.WriteLine("Недостаточно кофе и молока");
-            }
+            int coffeNeed = 10 * cups;
+            int milkneed = 10 * cups;
 
-            Drinks drink = new Drinks(type, _LevelCoffe, _LevelMilk);
+            switch (type)
+            {
+                case TypeDrink.Espresso:
+                    if (_LevelCoffe < coffeNeed)
+                    {
+                        Console.WriteLine("Недостаточно кофе!");
+                        return;
+                    }
+                    _LevelCoffe -= coffeNeed;
+                    break;
+                case TypeDrink.Capuccino:
+                    if (_LevelCoffe < coffeNeed || _LevelMilk < milkneed)
+                    {
+                        Console.WriteLine("Недостаточно кофе и молока!");
+                        return;
+                    }
+                    _LevelCoffe -= coffeNeed;
+                    _LevelMilk -= milkneed;
+                    break;
+                case TypeDrink.Latte:
+                    if (_LevelCoffe < coffeNeed || _LevelMilk < milkneed * 2)
+                    {
+                        Console.WriteLine("Недостаточно кофе и молока!");
+                        return;
+                    }
+                    _LevelCoffe -= coffeNeed;
+                    _LevelMilk -= milkneed * 2;
+                    break;
+            }
+            Drinks drink = new Drinks(type, coffeNeed, milkneed);
             _RecipeDrink.Add(drink);
-            _LevelCoffe -= 10;
-            _LevelMilk -= 20;
+            LogDrink(drink);
         }
 
         public void CleanMachine()
@@ -111,6 +130,33 @@ namespace CoffeeMachine
         public void LogDrink(Drinks drink)
         {
             Console.WriteLine($"Готовый {drink.Type} с {drink.Coffee}гр. кофе и {drink.Milk}гр. молока");
+        }
+        public void LogAllDrinks()
+        {
+            Console.WriteLine("Все приготовленные напитки: ");
+            foreach (var drink in _RecipeDrink)
+            {
+                LogDrink(drink);
+            }
+        }
+
+        public void drinkRecipe(string drinkname)
+        {
+            switch (drinkname.ToLower())
+            {
+                case "Espresso":
+                    Console.WriteLine("Еспрессо 20гр. кофе");
+                    break;
+                case "Capuccino":
+                    Console.WriteLine("Капучино 20гр. кофе и 50мл. молока");
+                    break;
+                case "Latte":
+                    Console.WriteLine("Латте 15гр. кофе и 50мл. молока");
+                    break;
+                default:
+                    Console.WriteLine("Напиток не найден");
+                    break;
+            }
         }
     }
 }
