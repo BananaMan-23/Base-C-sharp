@@ -8,9 +8,10 @@ namespace CoffeeMachine
 {
     class Coffe
     {
-        private const int MAX_LEVEL_WATER = 500;
-        private const int MAX_LEVEL_COFFEE = 250;
-        private const int MAX_LEVEL_MILK = 500;
+        private const int MAX_LEVEL_WATER = 1000;
+        private const int MAX_LEVEL_COFFEE = 500;
+        private const int MAX_LEVEL_MILK = 1000;
+        private const int MAX_LEVEL_DIRT = 5;
 
         private bool _isOn;
         private int _LevelWater;
@@ -18,6 +19,7 @@ namespace CoffeeMachine
         private int _LevelMilk;
         private List<Drinks> _RecipeDrink;
         private Dictionary<string, ProfileMenu> _Profiles;
+        private int _LevelDirt;
 
         public Coffe()
         {
@@ -25,6 +27,7 @@ namespace CoffeeMachine
             _LevelWater = 0;
             _LevelCoffe = 0;
             _LevelMilk = 0;
+            _LevelDirt = 0;
             _RecipeDrink = new List<Drinks>();
             InitProfile();
         }
@@ -122,10 +125,17 @@ namespace CoffeeMachine
             _LevelCoffe -= coffeNeed;
             _LevelMilk -= milkNeed;
             _LevelWater -= waterNeed;
-
-            Drinks drink = new Drinks(type, profile);
-            _RecipeDrink.Add(drink);
-            Console.WriteLine($"Приготовлен {drink.ProfileMenu.Name} с {coffeNeed}гр. кофе и {milkNeed}мл. молока");
+            _LevelDirt += 1;
+            if (_LevelDirt < MAX_LEVEL_DIRT)
+            {
+                Drinks drink = new Drinks(type, profile);
+                _RecipeDrink.Add(drink);
+                Console.WriteLine($"Приготовлен {drink.ProfileMenu.Name} с {coffeNeed}гр. кофе и {milkNeed}мл. молока");
+            }
+            else
+            {
+                Console.WriteLine("Аппарат загрязнен и требуется в чистке!");
+            }
         }
 
         public void CleanMachine()
@@ -134,6 +144,7 @@ namespace CoffeeMachine
             {
                 Console.WriteLine("Аппарат выключен!");
             }
+            _LevelDirt = 0;
             Console.WriteLine("Аппарат очищен!");
         }
 

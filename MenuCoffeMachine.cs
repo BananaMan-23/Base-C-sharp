@@ -55,6 +55,7 @@ namespace menuCoffeMachine
                         _coffeMachine.TurnToggle(true);
                         break;
                     case 2:
+                        Console.Clear();
                         _coffeMachine.TurnToggle(false);
                         break;
                     case 3:
