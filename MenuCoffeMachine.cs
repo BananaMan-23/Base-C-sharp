@@ -92,7 +92,7 @@ namespace menuCoffeMachine
                         Console.Clear();
                         Console.Write("Введите название напитка; ");
                         string? name = Console.ReadLine();
-                        _coffeMachine.drinkRecipe(name!);
+                        _coffeMachine.drinkIngredient(name!);
                         break;
                     case 9:
                         Console.Clear();

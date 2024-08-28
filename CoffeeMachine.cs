@@ -117,9 +117,9 @@ namespace CoffeeMachine
             int coffeNeed = profile.CoffeValue * cups;
             int milkNeed = profile.MilkValue * cups;
             int waterNeed = profile.WaterValue * cups;
-            if (_LevelCoffe < coffeNeed || _LevelMilk < milkNeed || _LevelWater < waterNeed)
+            if (_LevelCoffe < coffeNeed || _LevelMilk < milkNeed || _LevelWater < waterNeed || _LevelDirt < 0)
             {
-                Console.WriteLine("Недостаточно ингредиентов");
+                Console.WriteLine("Недостаточно ингредиентов или требуется чистка");
                 return;
             }
             _LevelCoffe -= coffeNeed;
@@ -144,8 +144,15 @@ namespace CoffeeMachine
             {
                 Console.WriteLine("Аппарат выключен!");
             }
-            _LevelDirt = 0;
-            Console.WriteLine("Аппарат очищен!");
+            if (_LevelDirt > 0)
+            {
+                _LevelDirt = 0;
+                Console.WriteLine("Аппарат очищен!");
+            }
+            else
+            {
+                Console.WriteLine("чистка не требуется!");
+            }
         }
 
         public void LogDrink(Drinks drink)
@@ -161,7 +168,7 @@ namespace CoffeeMachine
             }
         }
 
-        public void drinkRecipe(string drinkname)
+        public void drinkIngredient(string drinkname)
         {
             switch (drinkname.ToLower())
             {
