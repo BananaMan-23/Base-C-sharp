@@ -117,7 +117,7 @@ namespace CoffeeMachine
             int coffeNeed = profile.CoffeValue * cups;
             int milkNeed = profile.MilkValue * cups;
             int waterNeed = profile.WaterValue * cups;
-            if (_LevelCoffe < coffeNeed || _LevelMilk < milkNeed || _LevelWater < waterNeed || _LevelDirt < MAX_LEVEL_DIRT)
+            if (_LevelCoffe < coffeNeed || _LevelMilk < milkNeed || _LevelWater < waterNeed || _LevelDirt < 0)
             {
                 Console.WriteLine("Недостаточно ингредиентов или требуется чистка");
                 return;
